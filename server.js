@@ -20,7 +20,6 @@ app.get('/simpleUsage/users', function (req, res) { ExecuteRequest(req, res, sim
 app.get('/simpleUsage/users/:id', function (req, res) { ExecuteRequest(req, res, simpleUsage.GetUsersWithId)})
 app.post('/simpleUsage/simplePost', function (req, res) { ExecuteRequest(req, res, simpleUsage.ProcessSimplePost)})
 
-app.get('/serverTests/heavyLoad/:id', function (req, res) { ExecuteRequest(req, res, serverTests.HeavyLoad)})
 app.post('/serverTests/heavyLoad', function (req, res) { ExecuteRequest(req, res, serverTests.MakeHeavyLoadTest)})
 
 

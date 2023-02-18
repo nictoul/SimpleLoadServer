@@ -6,30 +6,6 @@ const minDurationInSec = 1
 const maxDurationInSec = 3600
 
 module.exports = {
-    HeavyLoad: function (req, res)
-{
-    var minLoadValue = 1
-    var maxLoadValue = 10000
-
-    if(req.params.id >= minLoadValue && req.params.id <= maxLoadValue)
-    {
-        var numberOfIteration = 2000000
-        console.log("HeavyLoad - Starting test with %s x %s loop of calculation", req.params.id, numberOfIteration)
-        for (let j = 0; j < req.params.id; j++) {
-            for (let i = 1; i <= numberOfIteration; i++) {
-                var dummy = dummy * i + i + dummy * i;
-            }    
-        }
-        
-        console.log("HeavyLoad - Done");
-        return res.send("HeavyLoad - Done");
-    }else{
-        var answer = `Enter a value between ${minLoadValue} to ${maxLoadValue}`
-        res.end(answer)
-    }    
-    console.log("HeavyLoad - Wrong value passed");
-},
-
     MakeHeavyLoadTest: async function (req, res)
     {
         var intensity = req.body.TestParameters.Intensity
