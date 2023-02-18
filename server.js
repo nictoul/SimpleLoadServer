@@ -16,8 +16,6 @@ var server = app.listen(8081, function () {
 
 
  // ****************** API ******************
-
-//app.get('/simpleUsage/users', function (req, res) { simpleUsage.GetUsers(req, res)})
 app.get('/simpleUsage/users', function (req, res) { ExecuteRequest(req, res, simpleUsage.GetUsers)})
 app.get('/simpleUsage/users/:id', function (req, res) { ExecuteRequest(req, res, simpleUsage.GetUsersWithId)})
 app.post('/simpleUsage/simplePost', function (req, res) { ExecuteRequest(req, res, simpleUsage.ProcessSimplePost)})
