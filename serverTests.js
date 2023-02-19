@@ -1,7 +1,7 @@
-var fs = require("fs");
+const date = require('date-and-time');
 
 const minIntensity = 1;
-const maxIntensity = 100;
+const maxIntensity = 10;
 const minDurationInSec = 1
 const maxDurationInSec = 3600
 
@@ -14,13 +14,17 @@ module.exports = {
             return res.status(400).end(`Enter a Intensity between ${minIntensity} to ${maxIntensity}`)
         }
 
-        var durationInSeconds = req.body.TestParameters.DurationInSeconds
+        var durationInSeconds = req.body.TestParameters.MinimalDurationInSeconds
         if(!ValidateDuration(durationInSeconds))
         {
             return res.status(400).end(`Enter a Duration between ${minDurationInSec} to ${maxDurationInSec} seconds`)
         }
 
-        await MakeSmallLoopOfHeavyLoad(intensity)
+        var startTime = new Date()
+        while(!IsTimesUp(startTime, durationInSeconds))
+        {
+            await MakeSmallLoopOfHeavyLoad(intensity)  
+        }
 
         return res.send("HeavyLoad - Done");
     }
@@ -45,7 +49,7 @@ function Sleep(ms) {
 //For low intensity the CPU sleep often
 async function MakeSmallLoopOfHeavyLoad(intensity)
 {
-    var sleepTimeInMs = maxIntensity - intensity
+    var sleepTimeInMs = maxIntensity * 2 - intensity * 2
     if(sleepTimeInMs === 0)
     {
         sleepTimeInMs = 1
@@ -59,4 +63,11 @@ async function MakeSmallLoopOfHeavyLoad(intensity)
         }
         await Sleep(sleepTimeInMs)
     }
+}
+
+function IsTimesUp(startTime, durationInSeconds)
+{
+    let elapsedSeconds = date.subtract(new Date(), startTime).toSeconds()
+    return elapsedSeconds > durationInSeconds;
+    
 }
