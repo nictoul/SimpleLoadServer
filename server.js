@@ -14,18 +14,16 @@ var server = app.listen(8081, function () {
     console.log("Use http://localhost:%s", port)
  })
 
-
  // ****************** API ******************
 app.get('/simpleUsage/users', function (req, res) { ExecuteRequest(req, res, simpleUsage.GetUsers)})
 app.get('/simpleUsage/users/:id', function (req, res) { ExecuteRequest(req, res, simpleUsage.GetUsersWithId)})
-app.post('/simpleUsage/simplePost', function (req, res) { ExecuteRequest(req, res, simpleUsage.ProcessSimplePost)})
 
 app.post('/serverTests/heavyLoad', function (req, res) { ExecuteRequest(req, res, serverTests.MakeHeavyLoadTest)})
 
-
-function ExecuteRequest(req, res, func)
+// ****************** Util ******************
+async function ExecuteRequest(req, res, func)
 {
     logger.logRequest(req, res)
-    func(req, res)
+    await func(req, res)
     logger.logResponse(req, res)
 }

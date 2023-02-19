@@ -6,6 +6,6 @@ module.exports = {
     },
     logResponse: function (request, response)
     {
-        console.log(`==== Response ${request.method} ${request.url} ${response.statusCode}`);
+        console.log(`**** Response ${request.method} ${request.url} ${response.statusCode}`);
     }
 }
