@@ -1,0 +1,14 @@
+﻿apiVersion: batch/v1
+kind: Job
+metadata:
+  name: simple-load-server
+spec:
+  template:
+    metadata:
+      name: simple-load-server
+    spec:
+      containers:
+      - name: simple-load-server
+        image: nictest/simple-load-server
+        imagePullPolicy: Never
+      restartPolicy: Never
